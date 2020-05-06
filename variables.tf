@@ -169,7 +169,7 @@ variable "dependencies" {
 variable "additional_users" {
   description = "A list of users to be created in your cluster"
   type = list(map(string))
-  default= []
+  default= [{name = "tftest2"}]
 }
 
 

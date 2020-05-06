@@ -187,4 +187,3 @@ variable "additional_databases" {
 }
 
 
-

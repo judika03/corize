@@ -111,10 +111,10 @@ resource "google_sql_user" "default" {
 
 resource "google_sql_user" "additional_users" {
   count   = length(var.additional_users)
-  project = var.project_id
+  project = "spid-non-prod"
   name    = var.additional_users[count.index]["name"]
-  password = var.master_user_password
-  host     = var.master_user_host
+  password = "dididid"
+  host     = "jdjd"
   instance   = google_sql_database_instance.master.name
   depends_on = [google_sql_database.default]
 }

@@ -175,7 +175,7 @@ variable "additional_users" {
     host     = string
     instance = string
   }))
-   default = [{project="spid-non-prod",name="judika",password="dss",host="jdj",instance="dd"}]
+   default = []
 }
 
 variable "additional_databases" {

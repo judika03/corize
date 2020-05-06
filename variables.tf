@@ -175,7 +175,7 @@ variable "additional_users" {
     host     = string
     instance = string
   }))
-
+     default= [{ "project" = "spid-non-prod","name" = "tftest2","password"="abcdefg","host"="localhost","instance"="testing1"}]
 }
 
 variable "additional_databases" {
@@ -189,3 +189,6 @@ variable "additional_databases" {
   }))
   default = []
 }
+
+
+

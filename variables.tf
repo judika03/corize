@@ -168,15 +168,11 @@ variable "dependencies" {
 
 variable "additional_users" {
   description = "A list of users to be created in your cluster"
-  type = list(object({
-    project  = string
-    name     = string
-    password = string
-    host     = string
-    instance = string
-  }))
-   default = []
+  type = list(map(string))
+  default= [{ project  = "spid-non-prod",name = "tftest2" ,password = "abcdefg" ,host = "localhost",instance = "testing2"  }   ]
 }
+
+
 
 variable "additional_databases" {
   description = "A list of databases to be created in your cluster"

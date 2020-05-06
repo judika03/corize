@@ -126,7 +126,6 @@ resource "null_resource" "dependency_getter" {
 }
 
 
-
 # ------------------------------------------------------------------------------
 # CREATE A TEMPLATE FILE TO SIGNAL ALL RESOURCES HAVE BEEN CREATED
 # ------------------------------------------------------------------------------

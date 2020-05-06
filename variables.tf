@@ -175,10 +175,8 @@ variable "additional_users" {
     host     = string
     instance = string
   }))
-  default = []
+
 }
-
-
 
 variable "additional_databases" {
   description = "A list of databases to be created in your cluster"

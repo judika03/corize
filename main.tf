@@ -126,15 +126,7 @@ resource "null_resource" "dependency_getter" {
 }
 # Create Dabatase User
 
-  additional_users = [
-    {
-      project  = var.project_id
-      name     = "tftest2"
-      password = "abcdefg"
-      host     = "localhost"
-      instance = "testing1"
-    }
-  ]
+
 # ------------------------------------------------------------------------------
 # CREATE A TEMPLATE FILE TO SIGNAL ALL RESOURCES HAVE BEEN CREATED
 # ------------------------------------------------------------------------------

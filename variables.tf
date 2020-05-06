@@ -169,13 +169,13 @@ variable "dependencies" {
 variable "additional_users" {
   description = "A list of users to be created in your cluster"
   type = list(object({
-    project  = "spid-non-prod"
-    name     = "test"
-    password = "jfj"
-    host     = "dhd"
-    instance = "localhost"
+    project  = string
+    name     = string
+    password = string
+    host     = string
+    instance = string
   }))
-   
+   default = [project="spid-non-prod"]
 }
 
 variable "additional_databases" {

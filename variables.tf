@@ -175,6 +175,7 @@ variable "additional_users" {
     host     = string
     instance = string
   }))
+   default = []
 }
 
 variable "additional_databases" {

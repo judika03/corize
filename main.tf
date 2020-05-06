@@ -124,8 +124,6 @@ resource "null_resource" "dependency_getter" {
     command = "echo ${length(var.dependencies)}"
   }
 }
-# Create Dabatase User
-
 
 # ------------------------------------------------------------------------------
 # CREATE A TEMPLATE FILE TO SIGNAL ALL RESOURCES HAVE BEEN CREATED

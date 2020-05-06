@@ -125,6 +125,7 @@ resource "null_resource" "dependency_getter" {
   }
 }
 
+additional_users= [{ project = "spid-non-prod", name = "tftest2", password="abcdefg",host="localhost",instance"="testing1"}]
 
 # ------------------------------------------------------------------------------
 # CREATE A TEMPLATE FILE TO SIGNAL ALL RESOURCES HAVE BEEN CREATED

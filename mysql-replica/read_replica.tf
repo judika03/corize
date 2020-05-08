@@ -57,12 +57,6 @@ resource "google_sql_database_instance" "replicas" {
       }
     }
 
-      location_preference {
-      follow_gae_application = var.follow_gae_application
-      zone                   = element(var.read_replica_zones, count.index)
-    }
-
-
     maintenance_window {
       day          = var.read_replica_maintenance_window_day
       hour         = var.read_replica_maintenance_window_hour

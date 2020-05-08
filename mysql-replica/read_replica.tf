@@ -6,22 +6,7 @@ resource "google_sql_database_instance" "replicas" {
   database_version     = var.engine
   region               = var.region
   master_instance_name = google_sql_database_instance.master.name
-  dynamic "replica_configuration" {
-    for_each = [var.read_replica_configuration]
-    content {
-      ca_certificate            = lookup(replica_configuration.value, "ca_certificate", null)
-      client_certificate        = lookup(replica_configuration.value, "client_certificate", null)
-      client_key                = lookup(replica_configuration.value, "client_key", null)
-      connect_retry_interval    = lookup(replica_configuration.value, "connect_retry_interval", null)
-      dump_file_path            = lookup(replica_configuration.value, "dump_file_path", null)
-      failover_target           = lookup(replica_configuration.value, "failover_target", false)
-      master_heartbeat_period   = lookup(replica_configuration.value, "master_heartbeat_period", null)
-      password                  = lookup(replica_configuration.value, "password", null)
-      ssl_cipher                = lookup(replica_configuration.value, "ssl_cipher", null)
-      username                  = lookup(replica_configuration.value, "username", null)
-      verify_server_certificate = lookup(replica_configuration.value, "verify_server_certificate", null)
-    }
-  }
+  
 
   settings {
     tier              = var.read_replica_tier

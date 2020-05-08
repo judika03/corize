@@ -19,7 +19,7 @@ resource "google_sql_database_instance" "master" {
 
   settings {
     tier                        = var.machine_type
-    activation_policy           = var.activation_policy
+    activation_policy           = "ALWAYS"
     authorized_gae_applications = var.authorized_gae_applications
     disk_autoresize             = var.disk_autoresize
 
@@ -34,28 +34,23 @@ resource "google_sql_database_instance" "master" {
 
       ipv4_enabled    = var.enable_public_internet_access
       private_network = data.google_compute_network.my-network.self_link
-      require_ssl     = var.require_ssl
-    }
-
-    location_preference {
-      follow_gae_application = var.follow_gae_application
-      zone                   = var.master_zone
+      require_ssl     = false
     }
 
     backup_configuration {
-      binary_log_enabled = var.mysql_binary_log_enabled
-      enabled            = var.backup_enabled
-      start_time         = var.backup_start_time
+      binary_log_enabled = true
+      enabled            = true
+      start_time         = "04:00"
     }
 
     maintenance_window {
-      day          = var.maintenance_window_day
-      hour         = var.maintenance_window_hour
-      update_track = var.maintenance_track
+      day          = 7
+      hour         = 7
+      update_track = "stable"
     }
 
     disk_size         = var.disk_size
-    disk_type         = var.disk_type
+    disk_type         = "PD_SSD"
 
 
     dynamic "database_flags" {
@@ -73,9 +68,9 @@ resource "google_sql_database_instance" "master" {
   # Sometimes the database creation can, however, take longer, so we
   # increase the timeouts slightly.
   timeouts {
-    create = var.resource_timeout
-    delete = var.resource_timeout
-    update = var.resource_timeout
+    create = "60m"
+    delete = "60m"
+    update = "60m"
   }
 }
 
@@ -115,10 +110,10 @@ resource "google_sql_user" "default" {
 
 resource "google_sql_user" "additional_users" {
   count   = length(var.additional_users)
-  project = var.project_id
+  project = "spid-non-prod"
   name    = var.additional_users[count.index]["name"]
-  password = var.master_user_password
-  host     = var.master_user_host
+  password = "dididid"
+  host     = "jdjd"
   instance   = google_sql_database_instance.master.name
   depends_on = [google_sql_database.default]
 }

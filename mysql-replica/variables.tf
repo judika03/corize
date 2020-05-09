@@ -174,6 +174,12 @@ variable "follow_gae_application" {
   default     = null
 }
 
+variable "read_replica_pricing_plan" {
+  description = "The pricing plan for the read replica instances."
+  type        = string
+  default     = "PER_USE"
+}
+
 variable "master_zone" {
   description = "Preferred zone for the master instance (e.g. 'us-central1-a'). 'region'. If null, Google will auto-assign a zone."
   type        = string

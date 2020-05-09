@@ -68,9 +68,9 @@ resource "google_sql_database_instance" "master" {
   # Sometimes the database creation can, however, take longer, so we
   # increase the timeouts slightly.
   timeouts {
-    create = "var.resource_timeout"
-    delete = "var.resource_timeout"
-    update = "var.resource_timeout"
+    create = var.resource_timeout
+    delete = var.resource_timeout
+    update = var.resource_timeout
   }
 }
 

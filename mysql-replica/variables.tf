@@ -29,19 +29,18 @@ variable "machine_type" {
 }
 
 
-
 variable "db_name" {
   description = "Name of your database. Needs to follow MySQL identifier rules: https://dev.mysql.com/doc/refman/5.7/en/identifiers.html"
   type        = string
 }
 
 variable "master_user_name" {
-  description = "The username part for the default user credentials, i.e. 'master_user_name'@'master_user_host' IDENTIFIED BY 'master_user_password'. This should typically be set as the environment variable TF_VAR_master_user_name so you don't check it into source control."
+  description = "The username part for the default user credentials, i.e. 'master_user_name'@'master_user_host' IDENTIFIED BY 'master_user_password'."
   type        = string
 }
 
 variable "master_user_password" {
-  description = "The password part for the default user credentials, i.e. 'master_user_name'@'master_user_host' IDENTIFIED BY 'master_user_password'. This should typically be set as the environment variable TF_VAR_master_user_password so you don't check it into source control."
+  description = "The password part for the default user credentials, i.e. 'master_user_name'@'master_user_host' IDENTIFIED BY 'master_user_password'"
   type        = string
 }
 
@@ -151,9 +150,6 @@ variable "user_host" {
   default     = "%"
 }
 
-
-
-
 variable "disk_autoresize" {
   description = "Second Generation only. Configuration to increase storage size automatically."
   type        = bool
@@ -190,7 +186,6 @@ variable "master_user_host" {
   default     = "%"
 }
 
-# In nearly all cases, databases should NOT be publicly accessible, however if you're migrating from a PAAS provider like Heroku to GCP, this needs to remain open to the internet.
 variable "enable_public_internet_access" {
   description = "WARNING: - In nearly all cases a database should NOT be publicly accessible. Only set this to true if you want the database open to the internet."
   type        = bool
@@ -203,14 +198,8 @@ variable "enable_failover_replica" {
   default     = false
 }
 
-variable "mysql_failover_replica_zone" {
-  description = "The preferred zone for the failover instance (e.g. 'us-central1-b'). Must be different than 'master_zone'. Only applicable to MySQL, Postgres will determine this automatically."
-  type        = string
-  default     = null
-}
-
 variable "require_ssl" {
-  description = "True if the instance should require SSL/TLS for users connecting over IP. Note: SSL/TLS is needed to provide security when you connect to Cloud SQL using IP addresses. If you are connecting to your instance only by using the Cloud SQL Proxy or the Java Socket Library, you do not need to configure your instance to use SSL/TLS."
+  description = "True if the instance should require SSL/TLS for users connecting over IP"
   type        = bool
   default     = false
 }
@@ -261,38 +250,6 @@ variable "dependencies" {
 # ---------------------------------------------------------------------------------------------------------------------
 # Variable read replica
 
-
-variable "read_replica_configuration" {
-  description = "The replica configuration for use in all read replica instances."
-  type = object({
-    connect_retry_interval    = number
-    dump_file_path            = string
-    ca_certificate            = string
-    client_certificate        = string
-    client_key                = string
-    failover_target           = bool
-    master_heartbeat_period   = number
-    password                  = string
-    ssl_cipher                = string
-    username                  = string
-    verify_server_certificate = bool
-  })
-
-  default = {
-    connect_retry_interval    = null
-    dump_file_path            = null
-    ca_certificate            = null
-    client_certificate        = null
-    client_key                = null
-    failover_target           = null
-    master_heartbeat_period   = null
-    password                  = null
-    ssl_cipher                = null
-    username                  = null
-    verify_server_certificate = null
-  }
-}
-
 variable "read_replica_name_suffix" {
   description = "The optional suffix to add to the read instance name"
   type        = string
@@ -308,7 +265,7 @@ variable "read_replica_size" {
 variable "read_replica_tier" {
   description = "The tier for the read replica instances."
   type        = string
-  default     = ""
+  default     = "db-n1-standard-1"
 }
 
 variable "read_replica_activation_policy" {
@@ -329,23 +286,13 @@ variable "read_replica_disk_autoresize" {
   default     = true
 }
 
-variable "read_replica_disk_size" {
+variable "rdisk_size" {
   description = "The disk size for the read replica instances."
   type        = number
-  default     = 10
+  default     = 50
 }
 
-variable "read_replica_disk_type" {
-  description = "The disk type for the read replica instances."
-  type        = string
-  default     = "PD_SSD"
-}
 
-variable "read_replica_pricing_plan" {
-  description = "The pricing plan for the read replica instances."
-  type        = string
-  default     = "PER_USE"
-}
 
 variable "read_replica_replication_type" {
   description = "The replication type for read replica instances. Can be one of ASYNCHRONOUS or SYNCHRONOUS."
@@ -362,20 +309,9 @@ variable "read_replica_database_flags" {
   default = []
 }
 
-variable "read_replica_maintenance_window_day" {
-  description = "The day of week (1-7) for the read replica instances maintenance."
-  type        = number
-  default     = 1
-}
-
-variable "read_replica_maintenance_window_hour" {
-  description = "The hour of day (0-23) maintenance window for the read replica instances maintenance."
-  type        = number
-  default     = 23
-}
 
 variable "read_replica_maintenance_window_update_track" {
-  description = "The update track of maintenance window for the read replica instances maintenance. Can be either `canary` or `stable`."
+  description = "The update track of maintenance window for the read replica instances maintenance. Can be either `canary` or `stable`"
   type        = string
   default     = "canary"
 }
@@ -402,24 +338,6 @@ variable "read_replica_ip_configuration" {
   }
 }
 
-variable "create_timeout" {
-  description = "The optional timout that is applied to limit long database creates."
-  type        = string
-  default     = "10m"
-}
-
-variable "update_timeout" {
-  description = "The optional timout that is applied to limit long database updates."
-  type        = string
-  default     = "10m"
-}
-
-variable "delete_timeout" {
-  description = "The optional timout that is applied to limit long database deletes."
-  type        = string
-  default     = "10m"
-}
-
 variable "additional_users" {
   description = "A list of users to be created in your cluster"
   type = list(object({
@@ -431,8 +349,6 @@ variable "additional_users" {
   }))
   default = []
 }
-
-
 
 variable "additional_databases" {
   description = "A list of databases to be created in your cluster"

@@ -7,7 +7,6 @@ resource "google_sql_database_instance" "replicas" {
   region               = var.region
   master_instance_name = google_sql_database_instance.master.name
   
-
   settings {
     tier              = var.read_replica_tier
     activation_policy = var.read_replica_activation_policy
@@ -24,13 +23,10 @@ resource "google_sql_database_instance" "replicas" {
       private_network =  data.google_compute_network.my-network.self_link
       require_ssl     = var.require_ssl
     }
-
-    authorized_gae_applications = var.authorized_gae_applications
-
     crash_safe_replication = var.read_replica_crash_safe_replication
     disk_autoresize        = var.read_replica_disk_autoresize
-    disk_size              = var.read_replica_disk_size
-    disk_type              = var.read_replica_disk_type
+    disk_size              = var.rdisk_size
+    disk_type              = var.disk_type
     pricing_plan           = var.read_replica_pricing_plan
     replication_type       = var.read_replica_replication_type
     user_labels            = var.read_replica_user_labels
@@ -43,8 +39,8 @@ resource "google_sql_database_instance" "replicas" {
     }
 
     maintenance_window {
-      day          = var.read_replica_maintenance_window_day
-      hour         = var.read_replica_maintenance_window_hour
+      day          = var.maintenance_window_day
+      hour         = var.maintenance_window_hour
       update_track = var.read_replica_maintenance_window_update_track
     }
   }
@@ -58,9 +54,9 @@ resource "google_sql_database_instance" "replicas" {
   }
 
   timeouts {
-    create = var.create_timeout
-    update = var.update_timeout
-    delete = var.delete_timeout
+    create = var.resource_timeout
+    update = var.resource_timeout
+    delete = var.resource_timeout
   }
 }
 

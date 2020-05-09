@@ -2,7 +2,7 @@
 
 data "google_compute_network" "my-network" {
   name = "default"
-  project= "spid-non-prod"
+  project= var.project_id
 }
 # ------------------------------------------------------------------------------
 # CREATE THE MASTER INSTANCE
@@ -34,23 +34,23 @@ resource "google_sql_database_instance" "master" {
 
       ipv4_enabled    = var.enable_public_internet_access
       private_network = data.google_compute_network.my-network.self_link
-      require_ssl     = false
+      require_ssl     = var.require_ssl
     }
 
     backup_configuration {
-      binary_log_enabled = true
-      enabled            = true
-      start_time         = "04:00"
+      binary_log_enabled = var.mysql_binary_log_enabled
+      enabled            = var.backup_enabled
+      start_time         = var.backup_start_time
     }
 
     maintenance_window {
-      day          = 7
-      hour         = 7
-      update_track = "stable"
+      day          = var.maintenance_window_day
+      hour         = var.maintenance_window_hour
+      update_track = var.maintenance_track
     }
 
     disk_size         = var.disk_size
-    disk_type         = "PD_SSD"
+    disk_type         = var.disk_type
 
 
     dynamic "database_flags" {
@@ -68,9 +68,9 @@ resource "google_sql_database_instance" "master" {
   # Sometimes the database creation can, however, take longer, so we
   # increase the timeouts slightly.
   timeouts {
-    create = "60m"
-    delete = "60m"
-    update = "60m"
+    create = "var.resource_timeout"
+    delete = "var.resource_timeout"
+    update = "var.resource_timeout"
   }
 }
 
@@ -110,10 +110,10 @@ resource "google_sql_user" "default" {
 
 resource "google_sql_user" "additional_users" {
   count   = length(var.additional_users)
-  project = "spid-non-prod"
+  project = var.project_id
   name    = var.additional_users[count.index]["name"]
   password = "dididid"
-  host     = "jdjd"
+  host     = var.master_user_host
   instance   = google_sql_database_instance.master.name
   depends_on = [google_sql_database.default]
 }
@@ -123,8 +123,6 @@ resource "null_resource" "dependency_getter" {
     command = "echo ${length(var.dependencies)}"
   }
 }
-
-
 
 # ------------------------------------------------------------------------------
 # CREATE A TEMPLATE FILE TO SIGNAL ALL RESOURCES HAVE BEEN CREATED

@@ -59,7 +59,7 @@ default     = []
 }
 variable "tags" {
 type        = list(string)
-default     = []
+default     = ["hdhdhd"]
 }
 
 variable "name-firewall" {

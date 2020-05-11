@@ -19,6 +19,10 @@ variable "zone" {
   type = string
   default = "asia-southeast1-a" 
 }
+variable "project_id" {
+  type        = string
+  
+}
 
 variable "email" {
     default=""

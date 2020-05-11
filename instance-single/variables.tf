@@ -19,10 +19,6 @@ variable "zone" {
   type = string
   default = "asia-southeast1-a" 
 }
-variable "name_instance" {
-  type        = string
-  
-}
 
 variable "email" {
     default=""

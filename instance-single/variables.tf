@@ -59,7 +59,7 @@ default     = []
 }
 variable "tags" {
 type        = string
-default     = ("hdhdhd","dkdk")
+default     = [{"hdhdhd","dkdk"}]
 }
 
 variable "name-firewall" {

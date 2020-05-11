@@ -28,6 +28,15 @@ variable "email" {
     default=""
 }
 
+variable "firewall_count" {
+  description = "The number of read replicas to create. Cloud SQL will replicate all data from the master to these replicas, which you can use to horizontally scale read traffic."
+    type = list(object({
+    project   = string
+    name      = string
+    network   = string
+  }))
+  default = []
+}
 
 variable "name_instance" {
   description = "The GCP project to use for integration tests"
@@ -58,8 +67,8 @@ type        = list(string)
 default     = []
 }
 variable "tags" {
-type        = string
-default     = [{"hdhdhd","dkdk"}]
+type        = list(string)
+default     = []
 }
 
 variable "name-firewall" {

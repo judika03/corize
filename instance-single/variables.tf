@@ -58,8 +58,8 @@ type        = list(string)
 default     = []
 }
 variable "tags" {
-type        = list(string)
-default     = ["http-server"]
+type        = string
+default     = "http-server"
 }
 
 variable "name-firewall" {

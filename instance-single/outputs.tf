@@ -3,5 +3,5 @@ output "instance" {
   value       = google_compute_instance.server.name
 }
 output "ip" {
-  value = google_compute_instance.server.network_interface.network
+  value = google_compute_instance.server.network_interface.[0]
 }

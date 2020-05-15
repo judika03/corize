@@ -67,7 +67,7 @@ type        = list(string)
 default     = []
 }
 variable "tags" {
-type        = list(string)
+type        = list
 description = "Network tags, provided as a list"
 }
 

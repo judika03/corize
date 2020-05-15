@@ -8,6 +8,6 @@ resource "google_compute_firewall" "fw-rule" {
     protocol = var.protocol
     ports    = var.ports
   }
-  target_tags   = [var.name]
+  target_tags   = var.name
   source_ranges = var.source_ranges
 }

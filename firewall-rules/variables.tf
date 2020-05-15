@@ -17,8 +17,8 @@ variable "source_ranges" {
 
 variable "target_tags" {
   description = "A list of target tags for this firewall"
-  type        = list(string)
-  default     = []
+  type        = string
+  
 }
 
 variable "protocol" {
@@ -26,7 +26,7 @@ variable "protocol" {
 }
 
 variable "ports" {
-  type = list(string)
+  type = string
   description = "List of ports and/or port ranges to allow. This can only be specified if the protocol is TCP or UDP"
   
 }

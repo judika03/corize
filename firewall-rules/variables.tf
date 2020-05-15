@@ -1,6 +1,9 @@
 variable "name" {
   description = "Name of the Firewall rule"
 }
+variable "project_id" {
+  description = "Name of the project"
+}
 
 variable "network" {
   description = "The name or self_link of the network to attach this firewall to"
@@ -10,7 +13,6 @@ variable "network" {
 variable "source_ranges" {
   type = list(string)
   description = "A list of source CIDR ranges that this firewall applies to. Can't be used for EGRESS"
-
 }
 
 variable "target_tags" {

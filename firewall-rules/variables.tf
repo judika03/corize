@@ -18,7 +18,7 @@ variable "source_ranges" {
 variable "target_tags" {
   description = "A list of target tags for this firewall"
   type        = string
-  default = ""
+  default = "judikakaa"
   
 }
 

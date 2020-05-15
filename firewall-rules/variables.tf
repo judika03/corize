@@ -4,6 +4,7 @@ variable "name" {
 
 variable "network" {
   description = "The name or self_link of the network to attach this firewall to"
+  default="default"
 }
 
 variable "source_ranges" {

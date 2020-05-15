@@ -26,6 +26,7 @@ variable "protocol" {
 }
 
 variable "ports" {
-  type = "list"
+  type = list(string)
   description = "List of ports and/or port ranges to allow. This can only be specified if the protocol is TCP or UDP"
+  
 }

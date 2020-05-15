@@ -11,14 +11,14 @@ variable "network" {
 }
 
 variable "source_ranges" {
-  type = string
+  type = list(string)
   description = "A list of source CIDR ranges that this firewall applies to. Can't be used for EGRESS"
+  
 }
 
 variable "target_tags" {
   description = "A list of target tags for this firewall"
   type        = string
-  
 }
 
 variable "protocol" {

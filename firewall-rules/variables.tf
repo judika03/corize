@@ -11,7 +11,7 @@ variable "network" {
 }
 
 variable "source_ranges" {
-  type = list(string)
+  type = string
   description = "A list of source CIDR ranges that this firewall applies to. Can't be used for EGRESS"
 }
 

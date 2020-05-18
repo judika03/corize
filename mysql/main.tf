@@ -112,7 +112,7 @@ resource "google_sql_user" "additional_users" {
   count   = length(var.additional_users)
   project = var.project_id
   name    = var.additional_users[count.index]["name"]
-  password = "dididid"
+  password =  var.master_user_password
   host     = var.master_user_host
   instance   = google_sql_database_instance.master.name
   depends_on = [google_sql_database.default]

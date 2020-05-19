@@ -27,8 +27,6 @@ variable "machine_type" {
   description = "The machine type for the instances. See this page for supported tiers and pricing: https://cloud.google.com/sql/pricing"
   type        = string
 }
-
-
 variable "db_name" {
   description = "Name of your database. Needs to follow MySQL identifier rules: https://dev.mysql.com/doc/refman/5.7/en/identifiers.html"
   type        = string
@@ -347,11 +345,9 @@ variable "read_replica_ip_configuration" {
 variable "additional_users" {
   description = "A list of users to be created in your cluster"
   type = list(object({
-    project  = string
     name     = string
     password = string
-    host     = string
-    instance = string
+  
   }))
   default = []
 }

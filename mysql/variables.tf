@@ -347,7 +347,7 @@ variable "additional_users" {
   type = list(object({
     name     = string
     password = string
-  
+    host     = string
   }))
   default = []
 }

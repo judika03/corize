@@ -3,6 +3,10 @@ data "google_compute_network" "network" {
   project = var.network_project == "" ? var.project : var.network_project
 }
 
+data "google_compute_instance_group" "ig" {
+    name = "cockroachdb-ig"
+    zone = "asia-southeast1-a"
+}
 data "google_compute_subnetwork" "network" {
   name    = var.subnetwork
   project = var.network_project == "" ? var.project : var.network_project

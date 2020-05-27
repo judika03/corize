@@ -27,7 +27,7 @@ module "managed_instance_group-master" {
   project_id = var.project_id
 
   target_size       = 1
-  hostname          = "elastic-master-spid"
+  hostname          = "test-elastic-master-spid"
   instance_template = module.instance_template-es-master.self_link
   named_ports = [{
     name = "elasticsearch"
@@ -40,7 +40,7 @@ module "managed_instance_group-data" {
   region            = var.region
   project_id = var.project_id
   target_size       = 2
-  hostname          = "elastic-data-spid"
+  hostname          = "test-elastic-data-spid"
   instance_template = module.instance_template-es-data.self_link
   named_ports = [{
     name = "elasticsearch"
@@ -54,7 +54,7 @@ module "gce-ilb" {
   network      = var.network
   subnetwork   = var.subnetwork
   region       = var.region
-  name         = "elastic-lb-terraform"
+  name         = "test-elastic-lb-terraform"
   health_check = local.health_check
   source_tags  = ["allow-group1"]
   ports        = ["9200"]

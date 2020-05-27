@@ -128,6 +128,6 @@ variable "service_label" {
 
 variable "ig" {
   description = "A list of databases to be created in your cluster"
-  type = string
-  default = ""
+  type = list(string)
+  default = ["cockroachdb-ig"]
 }

@@ -24,15 +24,9 @@ variable "network_project" {
 
 variable "name" {
   description = "Name for the forwarding rule and prefix for supporting resources."
+
 }
 
-variable "backends" {
-  description = "List of backends, should be a map of key-value pairs for each backend, must have the 'group' key."
-  type        = list(object({ 
-    group = string}))
-   default     = [] 
-    
-}
 
 variable "session_affinity" {
   description = "The session affinity for the backends example: NONE, CLIENT_IP. Default is `NONE`."
@@ -124,4 +118,10 @@ variable "service_label" {
   description = "Service label is used to create internal DNS name"
   default     = null
   type        = string
+}
+
+variable "backends" {
+  description = "A list of databases to be created in your cluster"
+  type = list(string)
+  default = ["cockroachdb-ig","graylog"]
 }

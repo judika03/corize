@@ -3,15 +3,21 @@ data "google_compute_network" "network" {
   project = var.network_project == "" ? var.project : var.network_project
 }
 
+
 data "google_compute_instance_group" "ig" {
-    name = "cockroachdb-ig"
-    zone = "asia-southeast1-a"
+    count   = length(var.ig)
+    name     = var.ig[count.index]
+    zone = "asia-southeast1-a" 
+    project = var.network_project == "" ? var.project : var.network_project
 }
+
+
 data "google_compute_subnetwork" "network" {
   name    = var.subnetwork
   project = var.network_project == "" ? var.project : var.network_project
   region  = var.region
 }
+
 
 resource "google_compute_forwarding_rule" "default" {
   project               = var.project
@@ -27,6 +33,7 @@ resource "google_compute_forwarding_rule" "default" {
   service_label         = var.service_label
 }
 
+
 resource "google_compute_region_backend_service" "default" {
   project          = var.project
   name             = var.health_check["type"] == "tcp" ? "${var.name}-with-tcp-hc" : "${var.name}-with-http-hc"
@@ -34,12 +41,10 @@ resource "google_compute_region_backend_service" "default" {
   protocol         = var.ip_protocol
   timeout_sec      = 10
   session_affinity = var.session_affinity
-  dynamic "backend" {
-    for_each = var.backends
-    content {
-      group       = lookup(backend.value, "group", null)
-    }
+  backend {
+    group          = concat(data.google_compute_instance_group.ig)
   }
+  
   health_checks = [var.health_check["type"] == "tcp" ? google_compute_health_check.tcp[0].self_link : google_compute_health_check.http[0].self_link]
 }
 

@@ -26,6 +26,11 @@ variable "subnetwork" {
   default     = "default"
 }
 
+variable "num_instance_master" {
+  description = "Number of instances to create"
+}
+
+
 variable "prefix" {
   type        = string
   description = "Prefix applied to service account names."

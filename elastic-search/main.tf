@@ -44,7 +44,7 @@ module "managed_instance_group-data" {
   source            = "github.com/judika03/module-terraform/modules/manager_instance_group"
   region            = var.region
   project_id = var.project_id
-  target_size       = 2
+  target_size       = var.num_instance_master
   hostname          = "test-elastic-data-spid"
   instance_template = module.instance_template-es-data.self_link
   named_ports = [{

@@ -42,7 +42,7 @@ variable "cluster_name" {
 }
 
 variable "zones" {
-  type    = "list"
+  type    = list(string)
   default = ["asia-southeast1-a", "asia-southeast1-b", "asia-southeast1-c"]
 }
 

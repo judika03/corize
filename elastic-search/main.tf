@@ -1,4 +1,8 @@
 
+data "google_service_account" "service_account" {
+    account_id = "gitlab-ci"
+}
+
 module "instance_template-es-master" {
   source               = "github.com/judika03/module-terraform/modules/instance_template"
   region               = var.region
@@ -6,7 +10,7 @@ module "instance_template-es-master" {
   subnetwork           = var.subnetwork
   machine_type         =var.master_machine_type
   subnetwork_project    = var.project_id
-  email                = module.service_accounts.email
+  email                = data.google_service_account.service_account.email
   startup_script=data.template_file.instance_startup_script.rendered
 }
 
@@ -17,7 +21,7 @@ module "instance_template-es-data" {
   machine_type         =var.master_machine_type
   subnetwork           = var.subnetwork
  subnetwork_project     = var.project_id
-  email                = module.service_accounts.email
+  email                = data.google_service_account.service_account.email
   startup_script=data.template_file.instance_startup_script1.rendered
 }
 

@@ -42,7 +42,7 @@ resource "google_compute_region_backend_service" "default" {
   timeout_sec      = 10
   session_affinity = var.session_affinity
   backend {
-    group          = data.google_compute_instance_group.ig.self_link
+    group          = data.google_compute_instance_group.ig[0].self_link
   }
   
   health_checks = [var.health_check["type"] == "tcp" ? google_compute_health_check.tcp[0].self_link : google_compute_health_check.http[0].self_link]

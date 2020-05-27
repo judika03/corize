@@ -1,6 +1,7 @@
 
 data "google_service_account" "service_account" {
     account_id = "gitlab-ci"
+    project = var.project_id
 }
 
 module "instance_template-es-master" {
